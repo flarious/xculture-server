@@ -1,4 +1,5 @@
-import { Controller, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put } from "@nestjs/common";
+import { title } from "process";
 import { ForumsService } from "./forums.service";
 
 /* http.get(//10.0.2.2:3000/forums) */
@@ -9,45 +10,48 @@ export class ForumsController {
     /* Get all forums for home page */
     @Get()
     async getForumsAllCategories() {
-        /*
-        Get forums from 3 category (Recommend (later), Trending (Highest views count), Newest (Recent date))
-        */
-    }
-
-    /* Get forums by category for see all page */
-    @Get("/:category")
-    async getForumsByCategory(@Param("category") category: string) {
-        /*
-        Get forums by category
-        */
+        return await this.service.getForums();
     }
 
     /* Get a forum's detail */
     @Get("/:forumID")
     async getForum(@Param("forumID") forumID: number) {
-        /*
-        Get forum detail
-        */
+        return await this.service.getForum(forumID);
     }
 
     @Post("")
-    async createForum() {
-        /*
-        Create forum from detail in HTTP's body
-        */
+    async createForum(
+        @Body('title') title: string,
+        @Body('subtitle') subtitle: string,
+        @Body('content') content: string,
+        @Body('thumbnail') thumbnail: string
+    ) {
+        let date = new Date();
+
+        await this.service.createForum(title, subtitle, content, thumbnail, false, 0, 0, date, date)
     }
 
     /* @Get("/:forumID/edit") ← Might not need, can use detail from GET /forums/:forumID for edit page */
 
     /* http.put(//10.0.2.2:3000/forums/12348569) */
+    
     @Put("/:forumID")
-    async updateForum(@Param("forumID") forumID: number) {
-        /* 
-        Full example → updateForum(@Param("forumID") forumID: number, @CurrentUser() curUserID: number, @Body())
-        Validate user, forum, forum's detail, check if user is the author 
-        If all pass, then update forum 
-        */
+    async updateForum(
+        @Param("forumID") forumID: number,
+        @Body("title") title: string,
+        @Body('subtitle') subtitle: string,
+        @Body('content') content: string,
+        @Body('thumbnail') thumbnail: string,
+        @Body('incognito') incognito: string,
+        @Body('viewed') viewed: string,
+        @Body('favorited') favorited: string,
+        @Body('date') date: string,
+    ) {
+        let update_date = new Date();
+        console.log(update_date)
+        await this.service.updateForum(forumID, title, subtitle, content, thumbnail, incognito, viewed, favorited, date, update_date);
     }
+    
 
     @Get("/:forumID/report")
     async getReportDetail() {
@@ -68,17 +72,19 @@ export class ForumsController {
 
     @Put("/:forumID/favorite")
     async favoriteForum(@Param("forumID") forumID: number) {
-        /*
-        Need to add part about User in parameter section
-        Might need to move to Favorite section of API, If that way have more sense
-        */
+        await this.service.forumFavorite(forumID);
     }
 
     @Put("/:forumID/unfavorite")
     async unfavoriteForum(@Param("forumID") forumID: number) {
-        /*
-        Same as favoriteForum()
-        */
+        await this.service.forumUnfavorite(forumID);
+    }
+
+    @Put("/:forumID/viewed")
+    async viewForum(
+        @Param("forumID") forumID: number,
+    ) {
+        await this.service.updateForumView(forumID);
     }
 
 
