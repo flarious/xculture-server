@@ -21,13 +21,23 @@ export class ForumsRepository {
                     .getOne();
     }
 
-    async createForum(title, subtitle, content, thumbnail_url, incognito, viewed, favorite_amount, date, update_date) {
+    async createForum(title, subtitle, content, thumbnail_url, author, incognito, viewed, favorite_amount, date, update_date) {
         await this.connection.createQueryBuilder()
                     .insert()
                     .into(ForumEntity)
                     .values([
-                        { title: title, subtitle: subtitle, content: content, thumbnail: thumbnail_url, incognito: incognito, 
-                            viewed: viewed, favorite_amount: favorite_amount, date: date, update_date: update_date }
+                        { 
+                            title: title, 
+                            subtitle: subtitle, 
+                            content: content, 
+                            thumbnail: thumbnail_url, 
+                            author: author,
+                            incognito: incognito, 
+                            viewed: viewed, 
+                            favorite_amount: favorite_amount, 
+                            date: date, 
+                            update_date: update_date 
+                        }
                     ])
                     .execute();
         return null;
@@ -63,7 +73,7 @@ export class ForumsRepository {
                     .execute();
     }
 
-    async updateForum(forumID, title, subtitle, content, thumbnail_url, incognito, viewed, favorite_amount, date, update_date) {
+    async updateForum(forumID, title, subtitle, content, thumbnail_url, author, incognito, viewed, favorite_amount, date, update_date) {
         await this.connection.createQueryBuilder()
                     .update(ForumEntity)
                     .set(
@@ -72,6 +82,7 @@ export class ForumsRepository {
                             subtitle: subtitle,
                             content: content,
                             thumbnail: thumbnail_url,
+                            author: author,
                             incognito: incognito,
                             viewed: viewed,
                             favorite_amount: favorite_amount,

@@ -24,16 +24,14 @@ export class ForumsController {
         @Body('title') title: string,
         @Body('subtitle') subtitle: string,
         @Body('content') content: string,
-        @Body('thumbnail') thumbnail: string
+        @Body('thumbnail') thumbnail: string,
+        @Body('author') author: string,
+        @Body('incognito') incognito: boolean
     ) {
         let date = new Date();
 
-        await this.service.createForum(title, subtitle, content, thumbnail, false, 0, 0, date, date)
+        await this.service.createForum(title, subtitle, content, thumbnail, author, incognito, 0, 0, date, date)
     }
-
-    /* @Get("/:forumID/edit") ← Might not need, can use detail from GET /forums/:forumID for edit page */
-
-    /* http.put(//10.0.2.2:3000/forums/12348569) */
     
     @Put("/:forumID")
     async updateForum(
@@ -42,14 +40,14 @@ export class ForumsController {
         @Body('subtitle') subtitle: string,
         @Body('content') content: string,
         @Body('thumbnail') thumbnail: string,
-        @Body('incognito') incognito: string,
+        @Body('author') author: string,
+        @Body('incognito') incognito: boolean,
         @Body('viewed') viewed: string,
         @Body('favorited') favorited: string,
         @Body('date') date: string,
     ) {
         let update_date = new Date();
-        console.log(update_date)
-        await this.service.updateForum(forumID, title, subtitle, content, thumbnail, incognito, viewed, favorited, date, update_date);
+        await this.service.updateForum(forumID, title, subtitle, content, thumbnail, author, incognito, viewed, favorited, date, update_date);
     }
     
 
@@ -86,9 +84,5 @@ export class ForumsController {
     ) {
         await this.service.updateForumView(forumID);
     }
-
-
-
-
 
 }

@@ -43,6 +43,8 @@ export class ForumEntity {
         @Column()
         favorite_amount: number;
 
+        @Column()
+        author: string;
 
         // @Column({ name: "user_id" })
         // id: number;
