@@ -8,15 +8,14 @@ export class ForumsRepository {
 
     async getForums() {
         return await this.connection.createQueryBuilder()
-                    .select("forum")
+                    .select("forum") 
                     .from(ForumEntity, "forum")
                     .getMany();
     }
 
     async getForum(forumID) {
-        return await this.connection.createQueryBuilder()
-                    .select("forum")
-                    .from(ForumEntity, "forum")
+        return await this.connection.createQueryBuilder(ForumEntity, "forum")
+                    .leftJoinAndSelect("forum.comments", "comments")
                     .where("forum.id = :forumID", { forumID: forumID})
                     .getOne();
     }
@@ -92,5 +91,9 @@ export class ForumsRepository {
                     )
                     .where("forum_id = :forum_id", {forum_id: forumID})
                     .execute();
+    }
+
+    async commentForum(forumID, ) {
+        
     }
 }

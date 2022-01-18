@@ -1,25 +1,33 @@
-import { Controller, Get, Post, Put } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put } from "@nestjs/common";
 import { CommentsService } from "./comments.service";
 
-@Controller("/forum/:forumID/comments")
+@Controller("/forums/:forumID/comments")
 export class CommentsController {
     constructor(private readonly service: CommentsService) {}
 
-    @Get()
-    async getAllForumComments () {
-
-    }
-
     @Post()
-    async commentForum () {
-
+    async commentForum (
+        @Param("forumID") forumID: number,
+        @Body("body") body: string,
+        @Body("author") author: string,
+        @Body("incognito") incognito: boolean
+    ) {
+        await this.service.commentForum(forumID, body, author, incognito);
     }
 
-    @Put("/:commentID/edit")
-    async editComment () {
-
+    /*
+    @Put("/:commentID")
+    async editComment (
+        @Param("commentID") commentID: number,
+        @Body("body") body: string,
+        @Body("author") author: string,
+        @Body("incognito") incognito: boolean,
+    ) {
+        await this.service.updateComment(commentID, body, author, incognito);
     }
+    */
 
+    /*
     @Get("/:commentID/report")
     async getReportDetail() {
 
@@ -29,14 +37,20 @@ export class CommentsController {
     async reportComment() {
 
     }
-
+    */
+    /*
     @Put("/:commentID/favorite")
-    async favoriteComment() {
-
+    async favoriteComment(
+        @Param("commentID") commentID: number
+    ) {
+        await this.service.favoriteComment(commentID)
     }
 
     @Put("/:commentID/unfavorite")
-    async unfavoriteComment () {
-        
+    async unfavoriteComment (
+        @Param("commentID") commentID: number
+    ) {
+        await this.service.unfavoriteComment(commentID)
     }
+    */
 }

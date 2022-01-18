@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { CommentsEntity } from '../comment/comment.entity';
+
 
 
 @Entity('forum')              // create a table name events
@@ -43,8 +45,13 @@ export class ForumEntity {
         @Column()
         favorite_amount: number;
 
+
         @Column()
         author: string;
+
+
+        @OneToMany(() => CommentsEntity, comment => comment.forum)
+        comments: CommentsEntity[];
 
         // @Column({ name: "user_id" })
         // id: number;

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { CommentsEntity } from '../comment/comment.entity';
 
 
 @Entity('reply')              // create a table name events
@@ -17,11 +18,25 @@ export class ReplyEntity {
 
 
         @Column()
+        update_date: Date;
+
+
+        @Column()
         body: string;
 
 
         @Column()
+        author: string;
+
+        
+        @Column()
         incognito: boolean;
+
+
+        @ManyToOne(() => CommentsEntity, comment => comment.replies)
+        comment: CommentsEntity;
+
+        
 
 
         // @Column({ name: "comment_id" })

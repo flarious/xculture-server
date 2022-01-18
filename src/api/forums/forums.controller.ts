@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Param, Post, Put } from "@nestjs/common";
-import { title } from "process";
 import { ForumsService } from "./forums.service";
 
 /* http.get(//10.0.2.2:3000/forums) */
@@ -50,23 +49,24 @@ export class ForumsController {
         await this.service.updateForum(forumID, title, subtitle, content, thumbnail, author, incognito, viewed, favorited, date, update_date);
     }
     
-
+    /*
     @Get("/:forumID/report")
     async getReportDetail() {
-        /*
+        
         Get report detail → Every item share the same report topic so no need to use :forumID
         Might need to create and move to Report section of API
         Because current way to access really don't do much and have high redundancy → report from forum, event, commu have the same page but different path, WHY!??
-        */
+
     }
     
     @Put("/:forumID/report")
     async reportForum(@Param("forumID") forumID: number) {
-        /*
+
         This time, we need :forumID because we need to use to store the report for admin
         Still need to move to Report section of API, perhaps
-        */
+        
     }
+    */
 
     @Put("/:forumID/favorite")
     async favoriteForum(@Param("forumID") forumID: number) {
