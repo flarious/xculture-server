@@ -13,12 +13,16 @@ export class ForumsService {
         return await this.repository.getForum(forumID);
     }
 
-    async createForum(title, subtitle, content, thumbnail_url, author, incognito, viewed, favorite_amount, date, update_date) {
-        await this.repository.createForum(title, subtitle, content, thumbnail_url, author, incognito, viewed, favorite_amount, date, update_date);
+    async createForum(title, subtitle, content, thumbnail_url, author, incognito) {
+        var favorite_amount = 0;
+        var viewed = 0;
+        var date = new Date();
+
+        await this.repository.createForum(title, subtitle, content, thumbnail_url, author, incognito, viewed, favorite_amount, date, date);
     }
 
-    async updateForum(forumID, title, subtitle, content, thumbnail_url, author, incognito, viewed, favorite_amount, date, update_date) {
-        await this.repository.updateForum(forumID, title, subtitle, content, thumbnail_url, author, incognito, viewed, favorite_amount, date, update_date);
+    async updateForum(forumID, title, subtitle, content, thumbnail_url, author, incognito, update_date) {
+        await this.repository.updateForum(forumID, title, subtitle, content, thumbnail_url, author, incognito, update_date);
     }
 
     async updateForumView(forumID) {

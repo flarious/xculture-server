@@ -16,6 +16,7 @@ export class ForumsRepository {
     async getForum(forumID) {
         return await this.connection.createQueryBuilder(ForumEntity, "forum")
                     .leftJoinAndSelect("forum.comments", "comments")
+                    .leftJoinAndSelect("comments.replies", "replies")
                     .where("forum.id = :forumID", { forumID: forumID})
                     .getOne();
     }
@@ -39,7 +40,6 @@ export class ForumsRepository {
                         }
                     ])
                     .execute();
-        return null;
     }
 
     async updateForumView(forumID) {
@@ -72,7 +72,7 @@ export class ForumsRepository {
                     .execute();
     }
 
-    async updateForum(forumID, title, subtitle, content, thumbnail_url, author, incognito, viewed, favorite_amount, date, update_date) {
+    async updateForum(forumID, title, subtitle, content, thumbnail_url, author, incognito, update_date) {
         await this.connection.createQueryBuilder()
                     .update(ForumEntity)
                     .set(
@@ -83,17 +83,10 @@ export class ForumsRepository {
                             thumbnail: thumbnail_url,
                             author: author,
                             incognito: incognito,
-                            viewed: viewed,
-                            favorite_amount: favorite_amount,
-                            date: date,
                             update_date: update_date,
                         }
                     )
                     .where("forum_id = :forum_id", {forum_id: forumID})
                     .execute();
-    }
-
-    async commentForum(forumID, ) {
-        
     }
 }

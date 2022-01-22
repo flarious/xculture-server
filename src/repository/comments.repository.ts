@@ -29,4 +29,39 @@ export class CommentsRepository {
                 .of(forumID)
                 .add(insertResult.identifiers[0].id);
     }
+
+    async favoriteComment(commentID) {
+        await this.connection.createQueryBuilder()
+                .update(CommentsEntity)
+                .set(
+                    { liked: () => "liked_comments + 1" }
+                )
+                .where("comment_id = :comment_id", {comment_id : commentID})
+                .execute();
+    }
+
+    async unfavoriteComment(commentID) {
+        await this.connection.createQueryBuilder()
+                .update(CommentsEntity)
+                .set(
+                    { liked: () => "liked_comments - 1" }
+                )
+                .where("comment_id = :comment_id", {comment_id : commentID})
+                .execute();
+    }
+
+    async updateComment(commentID, body, author, incognito, update_date) {
+        await this.connection.createQueryBuilder()
+                .update(CommentsEntity)
+                .set(
+                    {
+                        body: body,
+                        author: author,
+                        incognito: incognito,
+                        update_date: update_date
+                    }
+                )
+                .where("comment_id = :comment_id", {comment_id : commentID})
+                .execute();
+    }
 }

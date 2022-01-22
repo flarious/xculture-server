@@ -13,5 +13,17 @@ export class CommentsService {
         await this.repository.commentForum(forumID, body, author, incognito, favorited, replied, date, date);
     }
 
+    async favoriteComment(commentID) {
+        await this.repository.favoriteComment(commentID);
+    }
 
+    async unfavoriteComment(commentID) {
+        await this.repository.unfavoriteComment(commentID);
+    }
+
+    async updateComment(commentID, body, author, incognito) {
+        var update_date = new Date();
+
+        await this.repository.updateComment(commentID, body, author, incognito, update_date);
+    }
 }
