@@ -50,13 +50,12 @@ export class CommentsRepository {
                 .execute();
     }
 
-    async updateComment(commentID, body, author, incognito, update_date) {
+    async updateComment(commentID, body, incognito, update_date) {
         await this.connection.createQueryBuilder()
                 .update(CommentsEntity)
                 .set(
                     {
                         body: body,
-                        author: author,
                         incognito: incognito,
                         update_date: update_date
                     }

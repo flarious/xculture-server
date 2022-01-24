@@ -5,7 +5,8 @@ import { CommentsRepository } from "src/repository/comments.repository";
 export class CommentsService {
     constructor(private readonly repository: CommentsRepository) {}
 
-    async commentForum(forumID, body, author, incognito) {
+    async commentForum(forumID, body, incognito) {
+        var author = "User";
         var favorited = 0;
         var replied = 0;
         var date = new Date();
@@ -21,9 +22,9 @@ export class CommentsService {
         await this.repository.unfavoriteComment(commentID);
     }
 
-    async updateComment(commentID, body, author, incognito) {
+    async updateComment(commentID, body, incognito) {
         var update_date = new Date();
 
-        await this.repository.updateComment(commentID, body, author, incognito, update_date);
+        await this.repository.updateComment(commentID, body, incognito, update_date);
     }
 }

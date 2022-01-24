@@ -59,13 +59,12 @@ export class RepliesRepository {
                 .execute();
     }
 
-    async updateReply(replyID, body, author, incognito, update_date) {
+    async updateReply(replyID, body, incognito, update_date) {
         await this.connection.createQueryBuilder()
                 .update(ReplyEntity)
                 .set(
                     {
                         body: body,
-                        author: author,
                         incognito: incognito,
                         update_date: update_date
                     }

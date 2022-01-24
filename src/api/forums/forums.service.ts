@@ -13,7 +13,8 @@ export class ForumsService {
         return await this.repository.getForum(forumID);
     }
 
-    async createForum(title, subtitle, content, thumbnail_url, author, incognito) {
+    async createForum(title, subtitle, content, thumbnail_url, incognito) {
+        var author = "User";
         var favorite_amount = 0;
         var viewed = 0;
         var date = new Date();
@@ -21,8 +22,10 @@ export class ForumsService {
         await this.repository.createForum(title, subtitle, content, thumbnail_url, author, incognito, viewed, favorite_amount, date, date);
     }
 
-    async updateForum(forumID, title, subtitle, content, thumbnail_url, author, incognito, update_date) {
-        await this.repository.updateForum(forumID, title, subtitle, content, thumbnail_url, author, incognito, update_date);
+    async updateForum(forumID, title, subtitle, content, thumbnail_url, incognito) {
+        var update_date = new Date();
+
+        await this.repository.updateForum(forumID, title, subtitle, content, thumbnail_url, incognito, update_date);
     }
 
     async updateForumView(forumID) {

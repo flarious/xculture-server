@@ -9,10 +9,9 @@ export class CommentsController {
     async commentForum (
         @Param("forumID") forumID: number,
         @Body("content") body: string,
-        @Body("author") author: string,
         @Body("incognito") incognito: boolean
     ) {
-        await this.service.commentForum(forumID, body, author, incognito);
+        await this.service.commentForum(forumID, body, incognito);
     }
 
     
@@ -20,10 +19,9 @@ export class CommentsController {
     async editComment (
         @Param("commentID") commentID: number,
         @Body("content") body: string,
-        @Body("author") author: string,
         @Body("incognito") incognito: boolean,
     ) {
-        await this.service.updateComment(commentID, body, author, incognito);
+        await this.service.updateComment(commentID, body, incognito);
     }
 
 

@@ -72,7 +72,7 @@ export class ForumsRepository {
                     .execute();
     }
 
-    async updateForum(forumID, title, subtitle, content, thumbnail_url, author, incognito, update_date) {
+    async updateForum(forumID, title, subtitle, content, thumbnail_url, incognito, update_date) {
         await this.connection.createQueryBuilder()
                     .update(ForumEntity)
                     .set(
@@ -81,7 +81,6 @@ export class ForumsRepository {
                             subtitle: subtitle,
                             content: content,
                             thumbnail: thumbnail_url,
-                            author: author,
                             incognito: incognito,
                             update_date: update_date,
                         }

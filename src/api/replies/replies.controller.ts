@@ -9,20 +9,18 @@ export class RepliesController {
     async replyComment (
         @Param("commentID") commentID: number,
         @Body("content") body: string,
-        @Body("author") author: string,
         @Body("incognito") incognito: boolean
     ) {
-        await this.service.replyComment(commentID, body, author, incognito);
+        await this.service.replyComment(commentID, body, incognito);
     }
 
     @Put("/:replyID")
     async editReply (
         @Param("replyID") replyID: number,
         @Body("content") body: string,
-        @Body("author") author: string,
         @Body("incognito") incognito: boolean,
     ) {
-        await this.service.updateReply(replyID, body, author, incognito);
+        await this.service.updateReply(replyID, body, incognito);
     }
     /*
     @Get("/:replyID/report")

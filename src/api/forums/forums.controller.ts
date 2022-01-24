@@ -24,10 +24,9 @@ export class ForumsController {
         @Body('subtitle') subtitle: string,
         @Body('content') content: string,
         @Body('thumbnail') thumbnail: string,
-        @Body('author') author: string,
         @Body('incognito') incognito: boolean
     ) {
-        await this.service.createForum(title, subtitle, content, thumbnail, author, incognito);
+        await this.service.createForum(title, subtitle, content, thumbnail, incognito);
     }
     
     @Put("/:forumID")
@@ -37,11 +36,9 @@ export class ForumsController {
         @Body('subtitle') subtitle: string,
         @Body('content') content: string,
         @Body('thumbnail') thumbnail: string,
-        @Body('author') author: string,
         @Body('incognito') incognito: boolean,
     ) {
-        let update_date = new Date();
-        await this.service.updateForum(forumID, title, subtitle, content, thumbnail, author, incognito, update_date);
+        await this.service.updateForum(forumID, title, subtitle, content, thumbnail, incognito);
     }
     
     /*
