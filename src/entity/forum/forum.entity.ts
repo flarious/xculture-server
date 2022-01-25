@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { CommentsEntity } from '../comment/comment.entity';
+import { ForumTagEntity } from './forumTag.entity';
 
 
 
@@ -52,6 +53,9 @@ export class ForumEntity {
 
         @OneToMany(() => CommentsEntity, comment => comment.forum)
         comments: CommentsEntity[];
+
+        @OneToMany(() => ForumTagEntity, forumTag => forumTag.forum)
+        tags: ForumTagEntity[];
 
         // @Column({ name: "user_id" })
         // id: number;

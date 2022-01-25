@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { ForumTagEntity } from '../forum/forumTag.entity';
 
 @Entity('tag')              // create a table name events
 export class TagEntity {
@@ -12,7 +13,9 @@ export class TagEntity {
 
 
         @Column()
-        user_amount: number;
+        usage_amount: number;
+        
 
-
+        @OneToMany(() => ForumTagEntity, forumTag => forumTag.tag)
+        forumTagUsages: ForumTagEntity[];
 }

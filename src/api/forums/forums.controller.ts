@@ -24,9 +24,10 @@ export class ForumsController {
         @Body('subtitle') subtitle: string,
         @Body('content') content: string,
         @Body('thumbnail') thumbnail: string,
-        @Body('incognito') incognito: boolean
+        @Body('incognito') incognito: boolean,
+        @Body('tags') tags: number[],
     ) {
-        await this.service.createForum(title, subtitle, content, thumbnail, incognito);
+        await this.service.createForum(title, subtitle, content, thumbnail, incognito, tags);
     }
     
     @Put("/:forumID")
@@ -37,26 +38,18 @@ export class ForumsController {
         @Body('content') content: string,
         @Body('thumbnail') thumbnail: string,
         @Body('incognito') incognito: boolean,
+        @Body('tags') tags: string[],
     ) {
-        await this.service.updateForum(forumID, title, subtitle, content, thumbnail, incognito);
+        await this.service.updateForum(forumID, title, subtitle, content, thumbnail, incognito, tags);
     }
     
     /*
     @Get("/:forumID/report")
     async getReportDetail() {
-        
-        Get report detail → Every item share the same report topic so no need to use :forumID
-        Might need to create and move to Report section of API
-        Because current way to access really don't do much and have high redundancy → report from forum, event, commu have the same page but different path, WHY!??
-
     }
     
     @Put("/:forumID/report")
     async reportForum(@Param("forumID") forumID: number) {
-
-        This time, we need :forumID because we need to use to store the report for admin
-        Still need to move to Report section of API, perhaps
-        
     }
     */
 

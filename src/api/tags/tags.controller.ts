@@ -7,9 +7,7 @@ export class TagsController {
 
     @Get()
     async getTags() {
-        /*
-        Get list of tags
-        */
+        return await this.service.getTags();
     }
 
     @Put()
